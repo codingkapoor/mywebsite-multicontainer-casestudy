@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+    dropbox:
+            build: ./dropbox
+            volumes:
+                   - type: volume
+                     source: content-myblog
+                     target: /dbox/Dropbox/ghost/myblog/content
+            restart: always
+
+volumes:
+    content-myblog:
+            name: content-myblog

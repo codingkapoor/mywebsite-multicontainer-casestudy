@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+    reverse-proxy:
+            build: ./reverse-proxy
+            ports:
+                   - "80:80"
+            restart: always
+    mywebsite:
+            build: ./mywebsite
+            restart: always
+            depends_on:
+                    - reverse-proxy
+    myblog:
+            build: ./myblog
+            volumes:
+                   - type: volume
+                     source: content-myblog
+                     target: /var/lib/ghost/content 
+            restart: always
+            depends_on:
+                    - reverse-proxy            
+volumes:
+    content-myblog:
+            external: true
